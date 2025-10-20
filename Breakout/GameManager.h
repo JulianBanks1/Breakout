@@ -12,7 +12,7 @@
 
 class GameManager {
 public:
-    GameManager(sf::RenderWindow* window, sf::RenderTexture* renderTex);
+    GameManager(sf::RenderWindow* window, sf::RenderTexture* renderTex, sf::RenderTexture* lightTex);
     void initialize();
     void update(float dt);
     void loseLife();
@@ -43,6 +43,7 @@ private:
 
     sf::RenderTexture* _renderTex;
     sf::RenderWindow* _window;
+    sf::RenderTexture* _lightTex;
     Paddle* _paddle;
     Ball* _ball;
     BrickManager* _brickManager;

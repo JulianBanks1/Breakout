@@ -4,7 +4,10 @@
 Paddle::Paddle(sf::RenderWindow* window, sf::RenderTexture* renderTex, Ball* ball)
     : _window(window), _width(PADDLE_WIDTH), _timeInNewSize(0.0f), _isAlive(true)
 {
-    _sprite.setFillColor(sf::Color::Cyan);
+
+    _sprite.setOutlineColor(sf::Color(155, 77, 158, 255));
+    _sprite.setOutlineThickness(3);
+    _sprite.setFillColor(sf::Color(224, 123, 219, 255));
     _sprite.setPosition((window->getSize().x - _width) / 2.0f, window->getSize().y - 50.0f);
     _sprite.setSize(sf::Vector2f(_width, PADDLE_HEIGHT));
     leftEye = new Eye(15, renderTex, ball);

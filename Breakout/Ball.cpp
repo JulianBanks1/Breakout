@@ -1,12 +1,13 @@
 #include "Ball.h"
 #include "GameManager.h" // avoid cicular dependencies
 
-Ball::Ball(sf::RenderWindow* window, float velocity, GameManager* gameManager, sf::RenderTexture* renderTex)
+Ball::Ball(sf::RenderWindow* window, float velocity, GameManager* gameManager, sf::RenderTexture* renderTex, sf::RenderTexture* lightTex)
     : _window(window), _velocity(velocity), _gameManager(gameManager),
-    _timeWithPowerupEffect(0.f), _isFireBall(false), _isAlive(true), _direction({1,1})
+    _timeWithPowerupEffect(0.f), _isFireBall(false), _isAlive(true), _direction({1,1}), _lightTex(lightTex)
 {
+    _light.setRadius(RADIUS * 10);
     _sprite.setRadius(RADIUS);
-    _sprite.setFillColor(sf::Color::Cyan);
+    //_sprite.setFillColor(sf::Color::Cyan);
     _sprite.setPosition(0, 300);
     _renderTex = renderTex;
 }
@@ -29,7 +30,7 @@ void Ball::update(float dt)
         else
         {
             setFireBall(0);    // disable fireball
-            _sprite.setFillColor(sf::Color::Cyan);  // back to normal colour.
+            _sprite.setFillColor(sf::Color::White);  // back to normal colour.
         }        
     }
 
@@ -80,6 +81,11 @@ void Ball::update(float dt)
         _sprite.setPosition(_sprite.getPosition().x, _gameManager->getPaddle()->getBounds().top - 2 * RADIUS);
     }
 
+    _lightFlickerTime += dt * 20;
+    float currRad = RADIUS * (10 - sin(_lightFlickerTime));
+    _light.setRadius(currRad);
+    _light.setPosition(_sprite.getPosition() - sf::Vector2f(currRad - RADIUS, currRad - RADIUS));
+
     // collision with bricks
     int collisionResponse = _gameManager->getBrickManager()->checkCollision(_sprite, _direction);
     if (_isFireBall) return; // no collisisons when in fireBall mode.
@@ -97,6 +103,7 @@ void Ball::render()
 {
     //_window->draw(_sprite);
     _renderTex->draw(_sprite);
+    _lightTex->draw(_light);
 }
 
 sf::Vector2f Ball::getPos()

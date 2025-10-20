@@ -3,10 +3,10 @@
 #include "PowerupManager.h"
 #include <iostream>
 
-GameManager::GameManager(sf::RenderWindow* window, sf::RenderTexture* renderTex)
+GameManager::GameManager(sf::RenderWindow* window, sf::RenderTexture* renderTex, sf::RenderTexture* lightTex)
     : _window(window), _paddle(nullptr), _ball(nullptr), _brickManager(nullptr), _powerupManager(nullptr),
     _messagingSystem(nullptr), _ui(nullptr), _pause(false), _time(0.f), _lives(3), _pauseHold(0.f), _levelComplete(false),
-    _powerupInEffect({ none,0.f }), _timeLastPowerupSpawned(0.f)
+    _powerupInEffect({ none,0.f }), _timeLastPowerupSpawned(0.f), _lightTex(lightTex)
 {
     _font.loadFromFile("font/montS.ttf");
     _masterText.setFont(_font);
@@ -18,7 +18,7 @@ GameManager::GameManager(sf::RenderWindow* window, sf::RenderTexture* renderTex)
 
 void GameManager::initialize()
 {
-    _ball = new Ball(_window, 400.0f, this, _renderTex); 
+    _ball = new Ball(_window, 400.0f, this, _renderTex, _lightTex); 
     _paddle = new Paddle(_window, _renderTex, _ball);
     _brickManager = new BrickManager(_window, this, _renderTex, _ball);
     _messagingSystem = new MessagingSystem(_window);
