@@ -1,10 +1,11 @@
 #include "Paddle.h"
 #include <iostream>
 
-Paddle::Paddle(sf::RenderWindow* window, sf::RenderTexture* renderTex, Ball* ball)
-    : _window(window), _width(PADDLE_WIDTH), _timeInNewSize(0.0f), _isAlive(true)
+Paddle::Paddle(sf::RenderWindow* window, sf::RenderTexture* renderTex, Ball* ball, sf::RenderTexture* lightTex)
+    : _window(window), _width(PADDLE_WIDTH), _timeInNewSize(0.0f), _isAlive(true), _lightTex(lightTex)
 {
 
+    _light.setFillColor(sf::Color(155, 77, 158, 110));
     _sprite.setOutlineColor(sf::Color(155, 77, 158, 255));
     _sprite.setOutlineThickness(3);
     _sprite.setFillColor(sf::Color(224, 123, 219, 255));
@@ -57,6 +58,12 @@ void Paddle::update(float dt)
     {
         setWidth(1.0f, 0.0f); // Reset to default width after duration
     }
+
+    _lightFlickerTime += dt * 7;
+    float rad = 12;
+    float currRad = rad * (10 - sin(_lightFlickerTime));
+    _light.setRadius(currRad);
+    _light.setPosition(_sprite.getPosition() + (sf::Vector2f(getBounds().width * 0.5f, 0)) - sf::Vector2f(currRad, currRad));
 }
 
 void Paddle::render()
@@ -65,6 +72,7 @@ void Paddle::render()
     _renderTex->draw(_sprite);
     rightEye->render();
     leftEye->render();
+    _lightTex->draw(_light);
 }
 
 sf::FloatRect Paddle::getBounds() const

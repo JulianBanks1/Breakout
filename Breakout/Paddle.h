@@ -7,7 +7,7 @@
 class Paddle
 {
 public:
-    Paddle(sf::RenderWindow* window, sf::RenderTexture* renderTex, Ball* ball);
+    Paddle(sf::RenderWindow* window, sf::RenderTexture* renderTex, Ball* ball, sf::RenderTexture* lightTex);
     ~Paddle();
 
     void moveLeft(float dt);
@@ -22,9 +22,12 @@ private:
 
     Eye* leftEye;
     Eye* rightEye;
+    sf::CircleShape _light;
     sf::RenderTexture* _renderTex;
+    sf::RenderTexture* _lightTex;
     sf::RenderWindow* _window;
     sf::RectangleShape _sprite;
+    float _lightFlickerTime;
     float _width = PADDLE_WIDTH;
     bool _isAlive;
     float _timeInNewSize = 0.0f;

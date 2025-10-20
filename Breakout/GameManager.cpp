@@ -19,8 +19,8 @@ GameManager::GameManager(sf::RenderWindow* window, sf::RenderTexture* renderTex,
 void GameManager::initialize()
 {
     _ball = new Ball(_window, 400.0f, this, _renderTex, _lightTex); 
-    _paddle = new Paddle(_window, _renderTex, _ball);
-    _brickManager = new BrickManager(_window, this, _renderTex, _ball);
+    _paddle = new Paddle(_window, _renderTex, _ball, _lightTex);
+    _brickManager = new BrickManager(_window, this, _renderTex, _ball, _lightTex);
     _messagingSystem = new MessagingSystem(_window);
     _powerupManager = new PowerupManager(_window, _paddle, _ball, _renderTex);
     _ui = new UI(_window, _lives, this);
@@ -93,6 +93,7 @@ void GameManager::update(float dt)
     _paddle->update(dt);
     _ball->update(dt);
     _powerupManager->update(dt);
+    _brickManager->update(dt);
 }
 
 void GameManager::loseLife()

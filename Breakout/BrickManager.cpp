@@ -1,8 +1,8 @@
 #include "BrickManager.h"
 #include "GameManager.h"
 
-BrickManager::BrickManager(sf::RenderWindow* window, GameManager* gameManager, sf::RenderTexture* renderTex, Ball* ball)
-    : _window(window), _gameManager(gameManager), _renderTex(renderTex), _ball(ball)
+BrickManager::BrickManager(sf::RenderWindow* window, GameManager* gameManager, sf::RenderTexture* renderTex, Ball* ball, sf::RenderTexture* lightTex)
+    : _window(window), _gameManager(gameManager), _renderTex(renderTex), _ball(ball), _lightTex(lightTex)
 {
 }
 
@@ -18,7 +18,7 @@ void BrickManager::createBricks(int rows, int cols, float brickWidth, float bric
         for (int j = 0; j < cols; ++j) {
             float x = j * (brickWidth + spacing) + leftEdge;
             float y = i * (brickHeight + spacing) + TOP_PADDING;
-            _bricks.emplace_back(x, y, brickWidth, brickHeight, _ball, _renderTex);
+            _bricks.emplace_back(x, y, brickWidth, brickHeight, _ball, _renderTex, _lightTex);
         }
     }
 }
@@ -27,6 +27,13 @@ void BrickManager::render()
 {
     for (auto& brick : _bricks) {
         brick.render(*_window, _renderTex);
+    }
+}
+
+void BrickManager::update(float dt)
+{
+    for (auto& brick : _bricks) {
+        brick.update(dt);
     }
 }
 
