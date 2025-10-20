@@ -5,7 +5,7 @@
 class Eye
 {
 public:
-	Eye(float radius, sf::RenderTexture* renderTex, Ball* ball);
+	Eye(float radius, sf::RenderTexture* renderTex, Ball* ball, sf::Color col = sf::Color::Red);
 	void render();
 	void setPos(sf::Vector2f pos);
 

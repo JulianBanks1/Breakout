@@ -1,12 +1,12 @@
 #include "Eye.h"
 
-Eye::Eye(float radius, sf::RenderTexture* renderTex, Ball* ball)
+Eye::Eye(float radius, sf::RenderTexture* renderTex, Ball* ball, sf::Color col)
 {
 	_shapeOuter.setRadius(radius);
 	_shapeOuter.setFillColor(sf::Color::White);
 	_shapeOuter.setOutlineColor(sf::Color::Black);
 	_shapeOuter.setOutlineThickness(5);
-	_shapeInner.setFillColor(sf::Color::Red);
+	_shapeInner.setFillColor(col);
 	_shapeInner.setOutlineColor(sf::Color::Black);
 	_shapeInner.setOutlineThickness(3);
 	_shapeInner.setRadius(radius * 0.5f);

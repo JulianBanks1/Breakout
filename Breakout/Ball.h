@@ -23,6 +23,7 @@ private:
     sf::RenderTexture* _renderTex;
     sf::RenderTexture* _lightTex;
     sf::CircleShape _light;
+    sf::Texture _lightSpriteTex;
     float _lightFlickerTime;
     float _velocity;
     bool _isAlive;

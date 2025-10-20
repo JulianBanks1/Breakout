@@ -5,6 +5,8 @@ Ball::Ball(sf::RenderWindow* window, float velocity, GameManager* gameManager, s
     : _window(window), _velocity(velocity), _gameManager(gameManager),
     _timeWithPowerupEffect(0.f), _isFireBall(false), _isAlive(true), _direction({1,1}), _lightTex(lightTex)
 {
+    _lightSpriteTex.loadFromFile("pointLight.png");
+    _light.setTexture(&_lightSpriteTex);
     _light.setRadius(RADIUS * 10);
     _sprite.setRadius(RADIUS);
     //_sprite.setFillColor(sf::Color::Cyan);

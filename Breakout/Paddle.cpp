@@ -5,15 +5,18 @@ Paddle::Paddle(sf::RenderWindow* window, sf::RenderTexture* renderTex, Ball* bal
     : _window(window), _width(PADDLE_WIDTH), _timeInNewSize(0.0f), _isAlive(true), _lightTex(lightTex)
 {
 
-    _light.setFillColor(sf::Color(155, 77, 158, 110));
+    _light.setFillColor(sf::Color(155, 77, 158, 150));
     _sprite.setOutlineColor(sf::Color(155, 77, 158, 255));
     _sprite.setOutlineThickness(3);
     _sprite.setFillColor(sf::Color(224, 123, 219, 255));
     _sprite.setPosition((window->getSize().x - _width) / 2.0f, window->getSize().y - 50.0f);
     _sprite.setSize(sf::Vector2f(_width, PADDLE_HEIGHT));
-    leftEye = new Eye(15, renderTex, ball);
-    rightEye = new Eye(15, renderTex, ball);
+    leftEye = new Eye(15, renderTex, ball, sf::Color(224, 123, 219, 255));
+    rightEye = new Eye(15, renderTex, ball, sf::Color(224, 123, 219, 255));
     _renderTex = renderTex;
+
+    _lightSpriteTex.loadFromFile("pointLight.png");
+    _light.setTexture(&_lightSpriteTex);
 }
 
 Paddle::~Paddle()

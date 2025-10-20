@@ -18,6 +18,7 @@ private:
     sf::RenderWindow* _window;
     sf::RenderTexture* _renderTex;
     sf::RenderTexture* _lightTex;
+    sf::Texture _lightSpriteTex;
     Ball* _ball;
 
     GameManager* _gameManager;

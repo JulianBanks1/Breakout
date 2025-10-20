@@ -23,6 +23,7 @@ private:
     Eye* leftEye;
     Eye* rightEye;
     sf::CircleShape _light;
+    sf::Texture _lightSpriteTex;
     sf::RenderTexture* _renderTex;
     sf::RenderTexture* _lightTex;
     sf::RenderWindow* _window;
