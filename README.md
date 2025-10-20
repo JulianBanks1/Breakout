@@ -32,7 +32,7 @@ fire ball (green)
 * Implement commentary with calls to an LLM such as LLama
 
 # Time Details and Changelist
-Fixed compiler issues 10 mins
+Fixed compiler issues 10 mins 
 Screen bound mouse input 20 mins
 Added moving eyes to paddle 25 mins
 Added moving eyes to bricks 20 mins
