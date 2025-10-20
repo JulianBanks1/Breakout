@@ -2,15 +2,17 @@
 
 #include <SFML/Graphics.hpp>
 #include "CONSTANTS.h"
+#include "Eye.h"
 
 class Paddle
 {
 public:
-    Paddle(sf::RenderWindow* window);
+    Paddle(sf::RenderWindow* window, sf::RenderTexture* renderTex, Ball* ball);
     ~Paddle();
 
     void moveLeft(float dt);
     void moveRight(float dt);
+    void setPos(float x);
     void update(float dt);
     void render();
     sf::FloatRect getBounds() const;
@@ -18,7 +20,9 @@ public:
 
 private:
 
-
+    Eye* leftEye;
+    Eye* rightEye;
+    sf::RenderTexture* _renderTex;
     sf::RenderWindow* _window;
     sf::RectangleShape _sprite;
     float _width = PADDLE_WIDTH;

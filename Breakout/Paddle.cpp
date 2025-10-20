@@ -1,12 +1,15 @@
 #include "Paddle.h"
 #include <iostream>
 
-Paddle::Paddle(sf::RenderWindow* window)
+Paddle::Paddle(sf::RenderWindow* window, sf::RenderTexture* renderTex, Ball* ball)
     : _window(window), _width(PADDLE_WIDTH), _timeInNewSize(0.0f), _isAlive(true)
 {
     _sprite.setFillColor(sf::Color::Cyan);
     _sprite.setPosition((window->getSize().x - _width) / 2.0f, window->getSize().y - 50.0f);
     _sprite.setSize(sf::Vector2f(_width, PADDLE_HEIGHT));
+    leftEye = new Eye(15, renderTex, ball);
+    rightEye = new Eye(15, renderTex, ball);
+    _renderTex = renderTex;
 }
 
 Paddle::~Paddle()
@@ -33,6 +36,14 @@ void Paddle::moveRight(float dt)
     }
 }
 
+void Paddle::setPos(float x)
+{
+    _sprite.setPosition(sf::Vector2(x, _sprite.getPosition().y));
+    sf::Vector2f currPos = _sprite.getPosition();
+    leftEye->setPos(currPos + sf::Vector2f(10, 5));
+    rightEye->setPos(currPos + sf::Vector2f(getBounds().width - 10 - 30,  5));
+}
+
 void Paddle::update(float dt)
 {
     if (_timeInNewSize > 0)
@@ -47,7 +58,10 @@ void Paddle::update(float dt)
 
 void Paddle::render()
 {
-    _window->draw(_sprite);
+   // _window->draw(_sprite);
+    _renderTex->draw(_sprite);
+    rightEye->render();
+    leftEye->render();
 }
 
 sf::FloatRect Paddle::getBounds() const

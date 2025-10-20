@@ -1,13 +1,14 @@
 #include "Ball.h"
 #include "GameManager.h" // avoid cicular dependencies
 
-Ball::Ball(sf::RenderWindow* window, float velocity, GameManager* gameManager)
+Ball::Ball(sf::RenderWindow* window, float velocity, GameManager* gameManager, sf::RenderTexture* renderTex)
     : _window(window), _velocity(velocity), _gameManager(gameManager),
     _timeWithPowerupEffect(0.f), _isFireBall(false), _isAlive(true), _direction({1,1})
 {
     _sprite.setRadius(RADIUS);
     _sprite.setFillColor(sf::Color::Cyan);
     _sprite.setPosition(0, 300);
+    _renderTex = renderTex;
 }
 
 Ball::~Ball()
@@ -94,7 +95,13 @@ void Ball::update(float dt)
 
 void Ball::render()
 {
-    _window->draw(_sprite);
+    //_window->draw(_sprite);
+    _renderTex->draw(_sprite);
+}
+
+sf::Vector2f Ball::getPos()
+{
+    return _sprite.getPosition();
 }
 
 void Ball::setVelocity(float coeff, float duration)
