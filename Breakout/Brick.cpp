@@ -21,7 +21,7 @@ Brick::Brick(float x, float y, float width, float height, Ball* ball, sf::Render
     _eye->setPos(sf::Vector2f(x - 8 + width * 0.5f + offsetX, y + 8 + offsetY));
     _lightTex = lightTex;
     _light.setTexture(lightSpriteTex);
-    _light.setFillColor(sf::Color(255, 100, 100, 40));
+    _light.setFillColor(sf::Color(255, 100, 100, 40 * 0.5f));
     _lightFlickerTimer += std::rand() % (20);
 }
 

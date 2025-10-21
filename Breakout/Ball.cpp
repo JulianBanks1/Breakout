@@ -55,12 +55,14 @@ void Ball::update(float dt)
     if ((position.x >= windowDimensions.x - 2 * RADIUS && _direction.x > 0) || (position.x <= 0 && _direction.x < 0))
     {
         _direction.x *= -1;
+        _lightHitTime = HIT_PULSE_TIME;
     }
 
     // bounce on ceiling
     if (position.y <= 0 && _direction.y < 0)
     {
         _direction.y *= -1;
+        _lightHitTime = HIT_PULSE_TIME;
     }
 
     // lose life bounce
@@ -81,10 +83,18 @@ void Ball::update(float dt)
 
         // Adjust position to avoid getting stuck inside the paddle
         _sprite.setPosition(_sprite.getPosition().x, _gameManager->getPaddle()->getBounds().top - 2 * RADIUS);
+
+        _lightHitTime = HIT_PULSE_TIME;
     }
 
     _lightFlickerTime += dt * 20;
-    float currRad = RADIUS * (10 - sin(_lightFlickerTime));
+    if (_lightHitTime > 0)
+    {
+        _lightHitTime -= dt;
+        _lightHitTime = std::clamp(_lightHitTime, 0.0f, 9999.0f);
+    }
+    float currRad = RADIUS * (10 - sin(_lightFlickerTime));//+ (_lightHitTime / HIT_PULSE_TIME) * 50;
+    _light.setFillColor(sf::Color(255, 255, 255, (255 * 0.5f) + (_lightHitTime / HIT_PULSE_TIME) * 255 * 0.5f));
     _light.setRadius(currRad);
     _light.setPosition(_sprite.getPosition() - sf::Vector2f(currRad - RADIUS, currRad - RADIUS));
 
@@ -94,10 +104,12 @@ void Ball::update(float dt)
     if (collisionResponse == 1)
     {
         _direction.x *= -1; // Bounce horizontally
+        _lightHitTime = HIT_PULSE_TIME;
     }
     else if (collisionResponse == 2)
     {
         _direction.y *= -1; // Bounce vertically
+        _lightHitTime = HIT_PULSE_TIME;
     }
 }
 

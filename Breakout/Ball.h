@@ -24,7 +24,8 @@ private:
     sf::RenderTexture* _lightTex;
     sf::CircleShape _light;
     sf::Texture _lightSpriteTex;
-    float _lightFlickerTime;
+    float _lightHitTime = 0.0f;
+    float _lightFlickerTime = 0.0f;
     float _velocity;
     bool _isAlive;
     bool _isFireBall;
@@ -32,7 +33,7 @@ private:
 
     GameManager* _gameManager;  // Reference to the GameManager
 
-
+    const float HIT_PULSE_TIME = 0.4f;
     static constexpr float RADIUS = 10.0f;      
     static constexpr float VELOCITY = 350.0f;   // for reference.
 };
